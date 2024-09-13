@@ -1,30 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hodlinfo - Crypto Tickers</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="container">
-        <h1>Top 10 Crypto Tickers</h1>
-        <table id="tickers-table">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Last</th>
-                    <th>Buy</th>
-                    <th>Sell</th>
-                    <th>Volume</th>
-                    <th>Base Unit</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Data will be injected here -->
-            </tbody>
-        </table>
-    </div>
-    <script src="app.js"></script>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+        <title>HODLINFO</title>
+    </head>
+    <body>
+        <div class="container">
+            <header class="header">
+                <div class="logo">HODLINFO</div>
+                <nav class="nav">
+                    <select>
+                        <option>INR</option>
+                    </select>
+                    <select>
+                        <option>BTC</option>
+                    </select>
+                    <button class="button">BUY BTC</button>
+                </nav>
+            </header>
+    
+            <div class="price-info">
+                <div class="price-changes">
+                    <div class="price-change">
+                        <div class="value">0.1 %</div>
+                        <div>5 Mins</div>
+                    </div>
+                    <div class="price-change">
+                        <div class="value">0.96 %</div>
+                        <div>1 Hour</div>
+                    </div>
+                    <div class="price-change best-price">
+                        ₹ 26,56,110
+                    </div>
+                    <div class="price-change">
+                        <div class="value">2.73 %</div>
+                        <div>1 Day</div>
+                    </div>
+                    <div class="price-change">
+                        <div class="value">7.51 %</div>
+                        <div>7 Days</div>
+                    </div>
+                </div>
+                <div class="price-note">Average BTC/INR net price including commission</div>
+            </div>
+    
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Platform</th>
+                        <th>Last Traded Price</th>
+                        <th>Buy / Sell Price</th>
+                        <th>Difference</th>
+                        <th>Savings</th>
+                    </tr>
+                </thead>
+                <tbody id="platform-data">
+                    <!-- Data will be populated here -->
+                </tbody>
+            </table>
+        </div>
+        <script src="app.js"></script>
+    </body>
 </html>
