@@ -1,38 +1,59 @@
+const defaultIconUrl = 'https://cryptologos.cc/logos/bitcoin-btc-logo.png';
+
+
+const iconMap = {
+    'BTC/INR': 'https://cryptologos.cc/logos/bitcoin-btc-logo.png',
+    'XRP/INR': 'https://cdn.vectorstock.com/i/1000v/84/53/ripple-xrp-coin-icon-isolated-on-white-background-vector-40868453.jpg',
+    'ETH/INR': 'https://cryptologos.cc/logos/ethereum-eth-logo.png',
+    'TRX/INR': 'https://cryptologos.cc/logos/tron-trx-logo.png',
+    'EOS/INR': 'https://cryptologos.cc/logos/eos-eos-logo.png',
+    'ZIL/INR': 'https://cryptologos.cc/logos/zilliqa-zil-logo.png',
+    'BAT/INR': 'https://cryptologos.cc/logos/basic-attention-token-bat-logo.png',
+    'ZRX/INR': 'https://cryptologos.cc/logos/0x-zrx-logo.png',
+    'REQ/INR': 'https://cdn3.vectorstock.com/i/1000x1000/59/42/req-request-the-icon-crypto-coins-or-market-vector-24785942.jpg',
+    'NULS/INR': 'https://cryptologos.cc/logos/nuls-nuls-logo.png'
+};
+
+
+// Function to fetch ticker data and update the UI
 async function fetchTickers() {
     try {
-  
         const response = await fetch('http://localhost:8000/tickers');
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
         const tickers = await response.json();
 
-
-        const tableBody = document.querySelector('#platform-data');
-        tableBody.innerHTML = ''; 
-
+        const platformData = document.querySelector('#platform-data');
+        platformData.innerHTML = ''; // Clear previous data
 
         tickers.forEach((ticker, index) => {
-            const row = document.createElement('tr');
+            // Get the icon URL from the map or fallback to a default icon
+            const iconUrl = iconMap[ticker.name] || defaultIconUrl;
+            console.log(`Ticker Name: ${ticker.name}, Icon URL: ${iconUrl}`); // Debugging line
+            
+            const row = document.createElement('div');
+            row.classList.add('ticker-row');
             row.innerHTML = `
-                <td>${index + 1}</td>
-                <td><img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="Platform Icon" class="platform-icon"> ${ticker.name}</td>
-                <td>₹ ${ticker.last}</td>
-                <td>₹ ${ticker.buy} / ₹ ${ticker.sell}</td>
-                <td class="${ticker.buy > 0 ? (ticker.last > ticker.buy ? 'positive' : 'negative') : 'neutral'}">
+                <div class="heading-content">${index + 1}</div>
+                <div class="heading-content">
+                    <img src="${iconUrl}" alt="Platform Icon" class="platform-icon">
+                    ${ticker.name}
+                </div>
+                <div class="heading-content">₹ ${ticker.last}</div>
+                <div class="heading-content">₹ ${ticker.buy} / ₹ ${ticker.sell}</div>
+                <div class="heading-content ${ticker.buy > 0 ? (ticker.last > ticker.buy ? 'positive' : 'negative') : 'neutral'}">
                     ${ticker.buy > 0 ? calculateDifference(ticker.last, ticker.buy) + '%' : 'N/A'}
-                </td>
-                <td>${calculateSavings(ticker.last)}</td>
+                </div>
+                <div class="heading-content">${calculateSavings(ticker.last)}</div>
             `;
-            tableBody.appendChild(row);
+            platformData.appendChild(row);
         });
     } catch (error) {
         console.error('Error fetching tickers:', error);
-     
-        document.querySelector('#platform-data').innerHTML = `<tr><td colspan="6">Error fetching data.</td></tr>`;
+        document.querySelector('#platform-data').innerHTML = `<div>Error fetching data.</div>`;
     }
 }
-
 
 function calculateDifference(lastPrice, buyPrice) {
     if (buyPrice === 0) return 'N/A';  
@@ -45,46 +66,35 @@ function calculateSavings(lastPrice) {
     return `₹ ${savings.toFixed(2)}`;
 }
 
-document.querySelectorAll('.dropdown').forEach(dropdown => {
-    const button = dropdown.querySelector('button');
-    const dropdownMenu = dropdown.querySelector('.dropdown-menu');
-    
-    button.addEventListener('click', function(event) {
-        // Close any other open dropdowns before opening the clicked one
-        document.querySelectorAll('.dropdown-menu').forEach(menu => {
-            if (menu !== dropdownMenu) {
-                menu.classList.remove('show');
-            }
-        });
+const radius = 46;
+const circumference = 2 * Math.PI * radius;
+const progressPath = document.querySelector('.CircularProgressbar-path');
+const progressText = document.querySelector('.CircularProgressbar-text');
+let currentTime = 59;
 
-        // Toggle the visibility of the dropdown menu
-        dropdownMenu.classList.toggle('show');
+function setProgress(percent) {
+    const offset = circumference - (percent / 100 * circumference);
+    progressPath.style.strokeDashoffset = offset;
+    progressText.textContent = Math.ceil(percent);
+}
 
-        // Prevent the default button behavior
-        event.preventDefault();
-    });
-});
+function startCountdown() {
+    const interval = setInterval(() => {
+        setProgress(currentTime);
+        currentTime--;
 
-// Close dropdown if clicked outside
-document.addEventListener('click', function(event) {
-    if (!event.target.closest('.dropdown')) {
-        document.querySelectorAll('.dropdown-menu').forEach(menu => {
-            menu.classList.remove('show');
-        });
-    }
-});
+        if (currentTime < 0) {
+            clearInterval(interval);
+        }
+    }, 1000);
+}
 
+// Start the countdown when the page loads
 document.addEventListener('DOMContentLoaded', () => {
-    const switchElement = document.querySelector('.switch');
-    const switchSlider = document.querySelector('.switch-slider');
-    const body = document.body;
-
-    switchElement.addEventListener('click', () => {
-        switchElement.classList.toggle('active');
-        switchSlider.classList.toggle('active');
-        body.classList.toggle('light-theme');
-    });
+    setProgress(currentTime);
+    startCountdown();
 });
 
 
-window.onload = fetchTickers;
+// Fetch tickers on page load
+document.addEventListener('DOMContentLoaded', fetchTickers);

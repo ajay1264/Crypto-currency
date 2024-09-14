@@ -1,65 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="style.css">
-        <title>HODLINFO</title>
-    </head>
-    <body>
-        <div class="container">
-            <header class="header">
-                <div class="logo">HODLINFO</div>
-                <nav class="nav">
-                    <div class="dropdown">
-                        <button class="inr-btn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/front/style.css">
+    <title>HOLDINFO</title>
+</head>
+<body>
+    <div class="full-screen-div">
+        <header class="header">
+            <div class="logo">HOLDINFO</div>
+                <div class="navbar-center">
+
+                    <div class="btn-container">
+                        <button class="btn" onclick="toggleDropdown(this)">
                             INR
-                            <div class="arrow-container">
-                                <img src="/Frontend/Public/arrow-down.png" alt="down-arrow" class="arrow">
-                            </div>
+                   <div class="arrow-container">
+                      <img src="/front/arrow-down.png" alt="down-arrow" class="arrow">
+                     </div>
+                     <div class="dropdown">
+                        <a href="#">INR</a>
+                    </div>            
                         </button>
-                        <ul class="dropdown-menu">
-                            <li>INR</li>
-                        </ul>
-                    </div>
-                    <div class="dropdown">
-                        <button class="btc-btn">
+                        <button class="btn" onclick="toggleDropdown(this)">
                             BTC
                             <div class="arrow-container">
-                                <img src="/Frontend/Public/arrow-down.png" alt="down-arrow" class="arrow">
-                            </div>
+                                <img src="/front/arrow-down.png" alt="down-arrow" class="arrow">
+                               </div>
+                               <div class="dropdown">
+                                <a href="#">BTC</a>
+                                <a href="#">ETH</a>
+                                <a href="#">USDT</a>
+                                <a href="#">XRP</a>
+                                <a href="#">TRX</a>
+                                <a href="#">DASH</a>
+                                <a href="#">ZEC</a>
+                                <a href="#">XEM</a>
+                                <a href="#">IOST</a>
+                                <a href="#">WIN</a>
+                                <a href="#">BTT</a>
+                                <a href="#">WRX</a>
+                            </div>        
                         </button>
-                        <ul class="dropdown-menu">
-                            <li>BTC</li>
-                            <li>ETH</li>
-                            <li>USDT</li>
-                            <li>XRP</li>
-                            <li>TRX</li>
-                            <li>DASH</li>
-                            <li>ZEC</li>
-                            <li>XEM</li>
-                            <li>IOST</li>
-                            <li>WIN</li>
-                            <li>BTT</li>
-                            <li>WRX</li>
-                        </ul>
+                        <button class="btn">
+                            BUY BTC
+                        </button>
                     </div>
-                    <button class="buy-btn">BUY BTC</button>
-                    <div class="telgram-link">
-                        <button class="tele-btn">Connect Telgram</button>
+                </div>
+                <div class="bar">
+                    <div class="progress-bar-wrapper">
+                        <svg class="CircularProgressbar" viewBox="0 0 100 100" data-test-id="CircularProgressbar">
+                            <path class="CircularProgressbar-trail" d="
+                                M 50,50
+                                m 0,-46
+                                a 46,46 0 1 1 0,92
+                                a 46,46 0 1 1 0,-92
+                            " stroke-width="8" fill-opacity="0"></path>
+                            <path class="CircularProgressbar-path" d="
+                                M 50,50
+                                m 0,-46
+                                a 46,46 0 1 1 0,92
+                                a 46,46 0 1 1 0,-92
+                            " stroke-width="8" fill-opacity="0"></path>
+                            <text class="CircularProgressbar-text" x="50" y="50" dy=".3em">59</text>
+                        </svg>
                     </div>
-                    <div class="theme-switch">
-                        <span></span>
-                        <div class="switch-container">
-                            <div class="switch">
-                                <div class="switch-slider"></div>
-                            </div>
-                        </div>
-                        <span></span>
-                    </div>
-                </nav>
+                    
+            </div>
+                <div class="telgram-link">
+                    <button class="tele-btn">Connect Telgram</button>
+                </div>
+                <div class="theme-toggle">
+                    <label class="switch">
+                        <input type="checkbox" onclick="toggleTheme()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
             </header>
-    
             <div class="price-info">
                 <div class="price-changes">
                     <div class="price-change">
@@ -84,50 +102,61 @@
                 </div>
                 <div class="price-note">Average BTC/INR net price including commission</div>
             </div>
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Platform</th>
-                    <th>Last Traded Price</th>
-                    <th>Buy / Sell Price</th>
-                    <th>Difference</th>
-                    <th>Savings</th>
-                </tr>
-            </thead>
-            <tbody id="platform-data">
-                <!-- Data will be populated here -->
-            </tbody>
-        </table>
+            <div class="table-container">
+                <div class="headings">
+                    <div class="heading heading-1">#</div>
+                    <div class="heading heading-2">Platform</div>
+                    <div class="heading heading-3">Last Traded Price</div>
+                    <div class="heading heading-4">Buy / Sell Price</div>
+                    <div class="heading heading-5">Difference</div>
+                    <div class="heading heading-6">Savings</div>
+                </div>
+                <div id="platform-data" class="platform-data">
+                    <!-- Data rows will be injected here -->
+                </div>
+            </div>
+            <div class="footer">
+                <div class="d-flex align-items-center text-center">
+                    <div class="footer-text">Copyright © 2024</div>
+                    <div class="footer-text">HodlInfo.com</div>
+                    <div class="footer-text pointer" style="margin-left: auto;">
+                        <a href="mailto:support@hodlinfo.com" class="footer-text-link">Support</a>
+                    </div>
+                </div>
+
     </div>
-        </div>
-        <script src="app.js"></script>
-        <script>
-            // Example data
-            const platforms = [
-                { id: 1, name: "Platform 1", image: "path/to/image1.png", lastPrice: "₹ 25,000", buySell: "₹ 25,100 / ₹ 24,900", difference: "₹ 200", savings: "5%" },
-                { id: 2, name: "Platform 2", image: "path/to/image2.png", lastPrice: "₹ 26,000", buySell: "₹ 26,100 / ₹ 25,900", difference: "₹ 100", savings: "2%" }
-                // Add more platform data as needed
-            ];
-    
-            const tableBody = document.getElementById('platform-data');
-    
-            platforms.forEach(platform => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${platform.id}</td>
-                    <td>
-                        <img src="${platform.image}" alt="${platform.name}" class="platform-icon">
-                        ${platform.name}
-                    </td>
-                    <td>${platform.lastPrice}</td>
-                    <td>${platform.buySell}</td>
-                    <td>${platform.difference}</td>
-                    <td>${platform.savings}</td>
-                `;
-                tableBody.appendChild(row);
+    <script src="/front/app.js"></script>
+    <script>
+    function toggleDropdown(button) {
+            // Close any other open dropdowns
+            document.querySelectorAll('.btn').forEach(btn => {
+                if (btn !== button) {
+                    btn.classList.remove('active');
+                }
             });
-        </script>
-    </body>
+
+            // Toggle the current dropdown
+            button.classList.toggle('active');
+        }
+
+        // Close the dropdown if clicking outside of it
+        document.addEventListener('click', (event) => {
+            if (!event.target.closest('.btn')) {
+                document.querySelectorAll('.btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+            }
+        });
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark-theme');
+        }
+
+        // Initialize the toggle switch based on the current theme
+        document.addEventListener('DOMContentLoaded', () => {
+            const isDark = document.body.classList.contains('dark-theme');
+            document.querySelector('.theme-toggle input').checked = isDark;
+        });
+</script>
+</body>
 </html>
