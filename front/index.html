@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/front/style.css">
+    <title>HOLDINFO</title>
+</head>
+<body>
+    <div class="full-screen-div">
+        <header class="header">
+            <div class="logo">HOLDINFO</div>
+                <div class="navbar-center">
+
+                    <div class="btn-container">
+                        <button class="btn" onclick="toggleDropdown(this)">
+                            INR
+                   <div class="arrow-container">
+                      <img src="/Frontend/Public/arrow-down.png" alt="down-arrow" class="arrow">
+                     </div>
+                     <div class="dropdown">
+                        <a href="#">INR</a>
+                    </div>            
+                        </button>
+                        <button class="btn" onclick="toggleDropdown(this)">
+                            BTC
+                            <div class="arrow-container">
+                                <img src="/Frontend/Public/arrow-down.png" alt="down-arrow" class="arrow">
+                               </div>
+                               <div class="dropdown">
+                                <a href="#">BTC</a>
+                                <a href="#">ETH</a>
+                                <a href="#">USDT</a>
+                                <a href="#">XRP</a>
+                                <a href="#">TRX</a>
+                                <a href="#">DASH</a>
+                                <a href="#">ZEC</a>
+                                <a href="#">XEM</a>
+                                <a href="#">IOST</a>
+                                <a href="#">WIN</a>
+                                <a href="#">BTT</a>
+                                <a href="#">WRX</a>
+                            </div>        
+                        </button>
+                        <button class="btn">
+                            BUY BTC
+                        </button>
+                    </div>
+                </div>
+                <div class="bar">
+                    <div class="progress-bar-wrapper">
+                        <svg class="CircularProgressbar" viewBox="0 0 100 100" data-test-id="CircularProgressbar">
+                            <path class="CircularProgressbar-trail" d="
+                                M 50,50
+                                m 0,-46
+                                a 46,46 0 1 1 0,92
+                                a 46,46 0 1 1 0,-92
+                            " stroke-width="8" fill-opacity="0"></path>
+                            <path class="CircularProgressbar-path" d="
+                                M 50,50
+                                m 0,-46
+                                a 46,46 0 1 1 0,92
+                                a 46,46 0 1 1 0,-92
+                            " stroke-width="8" fill-opacity="0"></path>
+                            <text class="CircularProgressbar-text" x="50" y="50" dy=".3em">59</text>
+                        </svg>
+                    </div>
+                    
+            </div>
+                <div class="telgram-link">
+                    <button class="tele-btn">Connect Telgram</button>
+                </div>
+                <div class="theme-toggle">
+                    <label class="switch">
+                        <input type="checkbox" onclick="toggleTheme()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+            </header>
+            <div class="price-info">
+                <div class="price-changes">
+                    <div class="price-change">
+                        <div class="value">0.1 %</div>
+                        <div>5 Mins</div>
+                    </div>
+                    <div class="price-change">
+                        <div class="value">0.96 %</div>
+                        <div>1 Hour</div>
+                    </div>
+                    <div class="price-change best-price">
+                        ₹ 26,56,110
+                    </div>
+                    <div class="price-change">
+                        <div class="value">2.73 %</div>
+                        <div>1 Day</div>
+                    </div>
+                    <div class="price-change">
+                        <div class="value">7.51 %</div>
+                        <div>7 Days</div>
+                    </div>
+                </div>
+                <div class="price-note">Average BTC/INR net price including commission</div>
+            </div>
+            <div class="table-container">
+                <div class="headings">
+                    <div class="heading heading-1">#</div>
+                    <div class="heading heading-2">Platform</div>
+                    <div class="heading heading-3">Last Traded Price</div>
+                    <div class="heading heading-4">Buy / Sell Price</div>
+                    <div class="heading heading-5">Difference</div>
+                    <div class="heading heading-6">Savings</div>
+                </div>
+                <div id="platform-data" class="platform-data">
+                    <!-- Data rows will be injected here -->
+                </div>
+            </div>
+            <div class="footer">
+                <div class="d-flex align-items-center text-center">
+                    <div class="footer-text">Copyright © 2024</div>
+                    <div class="footer-text">HodlInfo.com</div>
+                    <div class="footer-text pointer" style="margin-left: auto;">
+                        <a href="mailto:support@hodlinfo.com" class="footer-text-link">Support</a>
+                    </div>
+                </div>
+
+    </div>
+    <script src="/front/app.js"></script>
+    <script>
+    function toggleDropdown(button) {
+            // Close any other open dropdowns
+            document.querySelectorAll('.btn').forEach(btn => {
+                if (btn !== button) {
+                    btn.classList.remove('active');
+                }
+            });
+
+            // Toggle the current dropdown
+            button.classList.toggle('active');
+        }
+
+        // Close the dropdown if clicking outside of it
+        document.addEventListener('click', (event) => {
+            if (!event.target.closest('.btn')) {
+                document.querySelectorAll('.btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+            }
+        });
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark-theme');
+        }
+
+        // Initialize the toggle switch based on the current theme
+        document.addEventListener('DOMContentLoaded', () => {
+            const isDark = document.body.classList.contains('dark-theme');
+            document.querySelector('.theme-toggle input').checked = isDark;
+        });
+</script>
+</body>
+</html>

@@ -1,17 +1,17 @@
 async function fetchTickers() {
     try {
-        // Fetch the data from the backend (ensure backend is running on port 8000)
+  
         const response = await fetch('http://localhost:8000/tickers');
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
         const tickers = await response.json();
 
-        // Reference to the table body in HTML where data will be populated
-        const tableBody = document.querySelector('#platform-data');
-        tableBody.innerHTML = ''; // Clear any previous data
 
-        // Loop through each ticker and create table rows dynamically
+        const tableBody = document.querySelector('#platform-data');
+        tableBody.innerHTML = ''; 
+
+
         tickers.forEach((ticker, index) => {
             const row = document.createElement('tr');
             row.innerHTML = `
@@ -44,6 +44,47 @@ function calculateSavings(lastPrice) {
     const savings = lastPrice * 0.02; 
     return `₹ ${savings.toFixed(2)}`;
 }
+
+document.querySelectorAll('.dropdown').forEach(dropdown => {
+    const button = dropdown.querySelector('button');
+    const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+    
+    button.addEventListener('click', function(event) {
+        // Close any other open dropdowns before opening the clicked one
+        document.querySelectorAll('.dropdown-menu').forEach(menu => {
+            if (menu !== dropdownMenu) {
+                menu.classList.remove('show');
+            }
+        });
+
+        // Toggle the visibility of the dropdown menu
+        dropdownMenu.classList.toggle('show');
+
+        // Prevent the default button behavior
+        event.preventDefault();
+    });
+});
+
+// Close dropdown if clicked outside
+document.addEventListener('click', function(event) {
+    if (!event.target.closest('.dropdown')) {
+        document.querySelectorAll('.dropdown-menu').forEach(menu => {
+            menu.classList.remove('show');
+        });
+    }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const switchElement = document.querySelector('.switch');
+    const switchSlider = document.querySelector('.switch-slider');
+    const body = document.body;
+
+    switchElement.addEventListener('click', () => {
+        switchElement.classList.toggle('active');
+        switchSlider.classList.toggle('active');
+        body.classList.toggle('light-theme');
+    });
+});
 
 
 window.onload = fetchTickers;

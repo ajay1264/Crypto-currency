@@ -11,13 +11,52 @@
             <header class="header">
                 <div class="logo">HODLINFO</div>
                 <nav class="nav">
-                    <select>
-                        <option>INR</option>
-                    </select>
-                    <select>
-                        <option>BTC</option>
-                    </select>
-                    <button class="button">BUY BTC</button>
+                    <div class="dropdown">
+                        <button class="inr-btn">
+                            INR
+                            <div class="arrow-container">
+                                <img src="/Frontend/Public/arrow-down.png" alt="down-arrow" class="arrow">
+                            </div>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>INR</li>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btc-btn">
+                            BTC
+                            <div class="arrow-container">
+                                <img src="/Frontend/Public/arrow-down.png" alt="down-arrow" class="arrow">
+                            </div>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>BTC</li>
+                            <li>ETH</li>
+                            <li>USDT</li>
+                            <li>XRP</li>
+                            <li>TRX</li>
+                            <li>DASH</li>
+                            <li>ZEC</li>
+                            <li>XEM</li>
+                            <li>IOST</li>
+                            <li>WIN</li>
+                            <li>BTT</li>
+                            <li>WRX</li>
+                        </ul>
+                    </div>
+                    <button class="buy-btn">BUY BTC</button>
+                    <div class="telgram-link">
+                        <button class="tele-btn">Connect Telgram</button>
+                    </div>
+                    <div class="theme-switch">
+                        <span></span>
+                        <div class="switch-container">
+                            <div class="switch">
+                                <div class="switch-slider"></div>
+                            </div>
+                        </div>
+                        <span></span>
+                    </div>
                 </nav>
             </header>
     
@@ -45,23 +84,50 @@
                 </div>
                 <div class="price-note">Average BTC/INR net price including commission</div>
             </div>
-    
-            <table>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Platform</th>
-                        <th>Last Traded Price</th>
-                        <th>Buy / Sell Price</th>
-                        <th>Difference</th>
-                        <th>Savings</th>
-                    </tr>
-                </thead>
-                <tbody id="platform-data">
-                    <!-- Data will be populated here -->
-                </tbody>
-            </table>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Platform</th>
+                    <th>Last Traded Price</th>
+                    <th>Buy / Sell Price</th>
+                    <th>Difference</th>
+                    <th>Savings</th>
+                </tr>
+            </thead>
+            <tbody id="platform-data">
+                <!-- Data will be populated here -->
+            </tbody>
+        </table>
+    </div>
         </div>
         <script src="app.js"></script>
+        <script>
+            // Example data
+            const platforms = [
+                { id: 1, name: "Platform 1", image: "path/to/image1.png", lastPrice: "₹ 25,000", buySell: "₹ 25,100 / ₹ 24,900", difference: "₹ 200", savings: "5%" },
+                { id: 2, name: "Platform 2", image: "path/to/image2.png", lastPrice: "₹ 26,000", buySell: "₹ 26,100 / ₹ 25,900", difference: "₹ 100", savings: "2%" }
+                // Add more platform data as needed
+            ];
+    
+            const tableBody = document.getElementById('platform-data');
+    
+            platforms.forEach(platform => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${platform.id}</td>
+                    <td>
+                        <img src="${platform.image}" alt="${platform.name}" class="platform-icon">
+                        ${platform.name}
+                    </td>
+                    <td>${platform.lastPrice}</td>
+                    <td>${platform.buySell}</td>
+                    <td>${platform.difference}</td>
+                    <td>${platform.savings}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        </script>
     </body>
 </html>
